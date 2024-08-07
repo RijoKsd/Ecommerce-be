@@ -35,7 +35,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  if(!email || !password){
+  if (!email || !password) {
     return res.status(400).json({ message: "Please fill all fields" });
   }
   try {
@@ -50,6 +50,7 @@ exports.login = async (req, res) => {
     const token = generateToken(user);
     return res.status(200).json({ message: "Login successful", token });
   } catch (err) {
+    console.error("Error during login:", err);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
