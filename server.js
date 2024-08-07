@@ -1,12 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv')
-const {connectDB} = require("./config/database")
+const connectDB = require("./config/database")
 
 const app = express();
 
 dotenv.config()
 app.use(express.json())
-
 
 connectDB()
 app.listen(process.env.PORT,()=>{
