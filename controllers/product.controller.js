@@ -3,9 +3,7 @@ const Product = require("../models/product.model");
 exports.createProduct = async (req, res) => {
   const ownerId = req.user;
   const role = req.role;
-  console.log(role, "role");
   const { name, price, description, quantity } = req.body;
-  console.log(req.body);
   if (!name || !price || !description || !quantity) {
     return res.status(400).json({ message: "Please fill all fields" });
   }
@@ -59,7 +57,6 @@ exports.getProductById = async (req, res) => {
   }
   try {
     const product = await Product.findOne({ _id: id, owner: userId });
-    console.log(product, "product");
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -85,7 +82,7 @@ exports.updateProduct = async (req, res) => {
   }
 
   try {
-    const product = await  Product.findOne({ _id: id, owner: userId });
+    const product = await Product.findOne({ _id: id, owner: userId });
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -103,11 +100,9 @@ exports.updateProduct = async (req, res) => {
     }
     await product.save();
     return res.status(200).json({ message: "Product updated successfully" });
-    
   } catch (error) {
     console.error("Error in updateProduct:", error);
     return res.status(500).json({ message: "Internal server error" });
-    
   }
 };
 
